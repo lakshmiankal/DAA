@@ -1,0 +1,20 @@
+def climb_stairs(n):
+    if n == 1:
+        return 1
+    elif n == 2:
+        return 2
+    
+    
+    dp = [0] * (n + 1)
+    dp[1] = 1  # 1 way to reach the first step
+    dp[2] = 2  # 2 ways to reach the second step
+    
+   
+    for i in range(3, n + 1):
+        dp[i] = dp[i - 1] + dp[i - 2]
+    
+    return dp[n]
+
+
+print(climb_stairs(4))  # Output: 5
+print(climb_stairs(3))  # Output: 3
