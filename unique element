@@ -1,0 +1,11 @@
+def unique_elements(nums):
+    seen = set()  # A set to store unique elements
+    unique_list = []  # A list to maintain original order
+
+   
+    for num in nums:
+        if num not in seen:
+            unique_list.append(num)  # Add to result if not seen
+            seen.add(num)  # Mark as seen
+    
+    return unique_list
