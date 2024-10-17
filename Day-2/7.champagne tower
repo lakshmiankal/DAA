@@ -1,0 +1,17 @@
+def champagneTower(poured, query_row, query_glass):
+    glasses = [[0] * (i + 1) for i in range(101)]
+    glasses[0][0] = poured
+    for i in range(100): 
+        for j in range(i + 1):  
+            if glasses[i][j] > 1:  
+                excess = glasses[i][j] - 1  
+                glasses[i][j] = 1  
+                # Distribute the excess to the glasses below
+                glasses[i + 1][j] += excess / 2  
+                glasses[i + 1][j + 1] += excess / 2  
+    return min(1, glasses[query_row][query_glass])  
+print(champagneTower(1, 1, 1))  
+print(champagneTower(2, 1, 1))  
+Output: 0.00000
+Output: 0.50000
+
