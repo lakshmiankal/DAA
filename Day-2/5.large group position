@@ -2,20 +2,15 @@ def largeGroupPositions(s):
     result = []
     n = len(s)
     start = 0
-    
     for i in range(1, n):
-        
-        if s[i] != s[start]:
-            if i - start >= 3:  # Check if the group size is 3 or more
-                result.append([start, i - 1])  # Store the start and end indices
+         if s[i] != s[start]:
+            if i - start >= 3:  
+                result.append([start, i - 1])  
             start = i  # Update start to the current index
-    
-   
-    if n - start >= 3:  # Check if the last group is large
+       if n - start >= 3:  # Check if the last group is large
         result.append([start, n - 1])
-    
     return result
-
-
 print(largeGroupPositions("abbxxxxzzy"))  # Output: [[3, 6]]
 print(largeGroupPositions("abc"))          # Output: []
+ Output: [[3, 6]]
+ Output: []
