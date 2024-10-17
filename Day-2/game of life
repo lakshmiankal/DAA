@@ -17,22 +17,21 @@ def gameOfLife(board):
             live_neighbors = countLiveNeighbors(i, j)
             if board[i][j] == 1:  # Live cell
                 if live_neighbors < 2 or live_neighbors > 3:
-                    board[i][j] = -1  # Mark for death in the next state
+                    board[i][j] = -1 
             else:  # Dead cell
                 if live_neighbors == 3:
-                    board[i][j] = 2  # Mark for rebirth in the next state
+                    board[i][j] = 2  
     for i in range(m):
         for j in range(n):
             if board[i][j] > 0:
                 board[i][j] = 1  # Live
             else:
                 board[i][j] = 0  # Dead
-
-# Example Test Cases
 board1 = [[0, 1, 0], [0, 0, 1], [1, 1, 1], [0, 0, 0]]
 gameOfLife(board1)
 print(board1)  # Output: [[0, 0, 0], [1, 0, 1], [0, 1, 1], [0, 1, 0]]
-
+ # Output: [[0, 0, 0], [1, 0, 1], [0, 1, 1], [0, 1, 0]]
 board2 = [[1, 1], [1, 0]]
 gameOfLife(board2)
-print(board2)  # Output: [[1, 1], [1, 1]]
+print(board2)   
+
