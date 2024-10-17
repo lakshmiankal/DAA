@@ -1,0 +1,6 @@
+def process_list(nums):
+    if len(nums) == 0:
+        return "List is empty"
+     sorted_nums = sorted(nums)
+     max_element = sorted_nums[-1]
+     return max_element
