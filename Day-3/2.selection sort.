@@ -1,0 +1,29 @@
+def selection_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        min_index = i
+        for j in range(i+1, n):
+            if arr[j] < arr[min_index]:
+                min_index = i
+        arr[i], arr[min_index] = arr[min_index], arr[i]
+    return arr
+test_cases = [
+    [5, 2, 9, 1, 5, 6],  
+    [10, 8, 6, 4, 2],    
+    [1, 2, 3, 4, 5]      
+]
+for i, test in enumerate(test_cases):
+    print(f"Test case {i+1}: Input: {test}")
+    sorted_arr = selection_sort(test.copy())  
+    print(f"Sorted Output: {sorted_arr}")
+    print()
+
+
+Test case 1: Input: [5, 2, 9, 1, 5, 6]
+Sorted Output: [1, 2, 5, 5, 6, 9]
+
+Test case 2: Input: [10, 8, 6, 4, 2]
+Sorted Output: [2, 4, 6, 8, 10]
+
+Test case 3: Input: [1, 2, 3, 4, 5]
+Sorted Output: [1, 2, 3, 4, 5]
