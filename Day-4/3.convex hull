@@ -1,0 +1,48 @@
+def orientation(p, q, r):
+    """Return the orientation of the triplet (p, q, r).
+    0 -> p, q and r are collinear
+    1 -> Clockwise
+    2 -> Counterclockwise
+    """
+    val = (q[1] - p[1]) * (r[0] - q[0]) - (q[0] - p[0]) * (r[1] - q[1])
+    if val == 0:
+        return 0
+    elif val > 0:
+        return 1
+    else:
+        return 2
+def convex_hull(points):
+    n = len(points)
+    if n < 3:
+        return []
+    hull = []
+     for i in range(n):
+        for j in range(i + 1, n):
+            left = right = 0
+            collinear_points = []
+            for k in range(n):
+                if k == i or k == j:
+                    continue
+                o = orientation(points[i], points[j], points[k])
+                if o == 1:
+                    right += 1
+                elif o == 2:
+                    left += 1
+                else:
+                    collinear_points.append(points[k])
+            if left == 0 or right == 0:
+                hull.append(points[i])
+                hull.append(points[j])
+                hull.extend(collinear_points)
+
+    hull = list(set(hull))  # Remove duplicates
+    hull.sort(key=lambda p: (p[0], p[1]))  # Sort points for counter-clockwise order
+    return hull
+
+
+points = [(1, 1), (4, 6), (8, 1), (0, 0), (3, 3)]
+hull = convex_hull(points)
+print("Convex Hull:", hull)
+
+Convex Hull: [(0, 0), (1, 1), (8, 1), (4, 6)]
+
