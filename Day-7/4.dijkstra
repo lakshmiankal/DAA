@@ -1,0 +1,30 @@
+import sys
+V = 4
+def min_distance(dist, spt_set):
+    min_val = sys.maxsize
+    min_index = -1
+    for v in range(V):
+        if not spt_set[v] and dist[v] < min_val:
+            min_val = dist[v]
+            min_index = v
+    return min_index
+def dijkstra(graph, src):
+    dist = [sys.maxsize] * V
+    spt_set = [False] * V
+    dist[src] = 0
+    for _ in range(V):
+        u = min_distance(dist, spt_set)
+        spt_set[u] = True
+        for v in range(V):
+            if not spt_set[v] and graph[u][v] and dist[u] != sys.maxsize and dist[u] + graph[u][v] < dist[v]:
+                dist[v] = dist[u] + graph[u][v]
+    return sum(dist)
+
+if __name__ == "__main__":
+    graph1 = [[0, 10, 15, 20], [10, 0, 35, 25], [15, 35, 0, 30], [20, 25, 30, 0]]
+    graph2 = [[0, 10, 10, 10], [10, 0, 10, 10], [10, 10, 0, 10], [10, 10, 10, 0]]
+    graph3 = [[0, 1, 2, 3], [1, 0, 4, 5], [2, 4, 0, 6], [3, 5, 6, 0]]
+
+    print("Output for Test Case 1:", dijkstra(graph1, 0))
+    print("Output for Test Case 2:", dijkstra(graph2, 0))
+    print("Output for Test Case 3:", dijkstra(graph3, 0))
