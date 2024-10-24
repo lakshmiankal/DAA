@@ -1,0 +1,53 @@
+def partition(arr, low, high, pivot):
+    pivot_value = arr[pivot]
+    arr[pivot], arr[high] = arr[high], arr[pivot]
+    store_index = low
+    for i in range(low, high):
+        if arr[i] < pivot_value:
+            arr[store_index], arr[i] = arr[i], arr[store_index]
+            store_index += 1
+    arr[store_index], arr[high] = arr[high], arr[store_index]
+    return store_index
+def select(arr, low, high, k):
+    if low == high:
+        return arr[low]
+    pivot_index = median_of_medians(arr, low, high)
+    pivot_index = partition(arr, low, high, pivot_index)
+    
+    if k == pivot_index:
+        return arr[k]
+    elif k < pivot_index:
+        return select(arr, low, pivot_index - 1, k)
+    else:
+        return select(arr, pivot_index + 1, high, k)
+
+def median_of_medians(arr, low, high):
+    n = high - low + 1
+    if n <= 5:
+        return sorted(arr[low:high + 1])[n // 2]
+    
+    medians = []
+    for i in range(low, high + 1, 5):
+        sub_right = min(i + 4, high)
+        median = sorted(arr[i:sub_right + 1])[(sub_right - i + 1) // 2]
+        medians.append(median)
+    
+    return select(medians, 0, len(medians) - 1, len(medians) // 2)
+
+def find_kth_smallest(arr, k):
+    return select(arr, 0, len(arr) - 1, k - 1)
+
+
+test_cases = [
+    ([12, 3, 5, 7, 19], 2, "Expected Output: 5"),
+    ([12, 3, 5, 7, 4, 19, 26], 3, "Expected Output: 5"),
+    ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 6, "Expected Output: 6")
+]
+
+for arr, k, expected in test_cases:
+    result = find_kth_smallest(arr, k)
+    print(f"Array: {arr}, k: {k}")
+    print(f"Result: {result}, {expected}\n")
+
+input: Array: [12, 3, 5, 7, 19], k: 2
+Output: Result: 5, Expected Output: 5
