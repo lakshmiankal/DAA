@@ -1,0 +1,48 @@
+def add_matrix(A, B):
+    return [[A[0][0] + B[0][0], A[0][1] + B[0][1]],
+            [A[1][0] + B[1][0], A[1][1] + B[1][1]]]
+def subtract_matrix(A, B):
+    return [[A[0][0] - B[0][0], A[0][1] - B[0][1]],
+            [A[1][0] - B[1][0], A[1][1] - B[1][1]]]
+def strassen_multiply(A, B):
+    if len(A) == 2 and len(A[0]) == 2:
+        M1 = (A[0][0] + A[1][1]) * (B[0][0] + B[1][1])
+        M2 = (A[1][0] + A[1][1]) * B[0][0]
+        M3 = A[0][0] * (B[0][1] - B[1][1])
+        M4 = A[1][1] * (B[1][0] - B[0][0])
+        M5 = (A[0][0] + A[0][1]) * B[1][1]
+        M6 = (A[1][0] - A[0][0]) * (B[0][0] + B[0][1])
+        M7 = (A[0][1] - A[1][1]) * (B[1][0] + B[1][1])
+
+        C11 = M1 + M4 - M5 + M7
+        C12 = M3 + M5
+        C21 = M2 + M4
+        C22 = M1 - M2 + M3 + M6
+
+        return [[C11, C12], [C21, C22]]
+    else:
+        raise ValueError("This implementation only supports 2x2 matrices.")
+
+
+A = [[1, 7], [3, 5]]
+B = [[6, 8], [4, 2]]
+
+C = strassen_multiply(A, B)
+print("Matrix A:")
+for row in A:
+    print(row)
+print("\nMatrix B:")
+for row in B:
+    print(row)
+print("\nProduct Matrix C:")
+for row in C:
+    print(row)
+
+matrixA=[1, 7]
+        [3, 5]
+matrixB=[6, 8]
+        [4, 2]
+product=[34, 24]
+        [38, 34]
+
+
