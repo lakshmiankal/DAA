@@ -1,0 +1,24 @@
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        swapped = False
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+                swapped = True
+        if not swapped:
+            break
+    return arr
+test_cases = [
+    ([64, 25, 12, 22, 11], [11, 12, 22, 25, 64]),
+    ([29, 10, 14, 37, 13], [10, 13, 14, 29, 37]),
+    ([3, 5, 2, 1, 4], [1, 2, 3, 4, 5]),
+    ([1, 2, 3, 4, 5], [1, 2, 3, 4, 5]),
+    ([5, 4, 3, 2, 1], [1, 2, 3, 4, 5])
+]
+for i, (input_list, expected_output) in enumerate(test_cases, 1):
+    result = bubble_sort(input_list.copy())
+    print(f"Test Case {i}: {'Passed' if result == expected_output else 'Failed'}")
+    print(f"Input: {input_list}")
+    print(f"Expected Output: {expected_output}")
+    print(f"Actual Output: {result}\n")
