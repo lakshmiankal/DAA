@@ -1,0 +1,37 @@
+from itertools import permutations
+def calculate_distance(graph, path):
+    distance = 0
+    for i in range(len(path) - 1):
+        distance += graph[path[i]][path[i + 1]]
+    distance += graph[path[-1]][path[0]]  # Return to the starting city
+    return distance
+def tsp(graph):
+    cities = list(range(len(graph)))
+    min_distance = float('inf')
+    best_path = None
+    for perm in permutations(cities):
+        current_distance = calculate_distance(graph, perm)
+        if current_distance < min_distance:
+            min_distance = current_distance
+            best_path = perm
+    return best_path, min_distance
+if __name__ == "__main__":
+    graph = [
+        [0, 10, 15, 20, 25],
+        [10, 0, 35, 25, 30],
+        [15, 35, 0, 30, 20],
+        [20, 25, 30, 0, 15],
+        [25, 30, 20, 15, 0]
+    ]
+    
+    best_path, min_distance = tsp(graph)
+    city_names = ['A', 'B', 'C', 'D', 'E']
+    best_path_named = [city_names[i] for i in best_path]
+    
+    print("Shortest route:", " -> ".join(best_path_named))
+    print("Total distance:", min_distance)
+
+A-B: 10, A-C: 15, A-D: 20, A-E: 25
+B-C: 35, B-D: 25, B-E: 30
+C-D: 30, C-E: 20
+D-E: 15
