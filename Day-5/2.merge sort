@@ -1,0 +1,40 @@
+def merge_sort(arr):
+    if len(arr) > 1:
+        mid = len(arr) // 2 
+        left_half = arr[:mid] 
+        right_half = arr[mid:]
+
+        # Recursively sort both halves
+        merge_sort(left_half)
+        merge_sort(right_half)
+
+        i = j = k = 0
+        while i < len(left_half) and j < len(right_half):
+            if left_half[i] < right_half[j]:
+                arr[k] = left_half[i]
+                i += 1
+            else:
+                arr[k] = right_half[j]
+                j += 1
+            k += 1
+
+        # Check if any element was left
+        while i < len(left_half):
+            arr[k] = left_half[i]
+            i += 1
+            k += 1
+
+        while j < len(right_half):
+            arr[k] = right_half[j]
+            j += 1
+            k += 1
+    ([31, 23, 35, 27, 11, 21, 15, 28], "Test Case 1"),
+    ([22, 34, 25, 36, 43, 67, 52, 13, 65, 17], "Test Case 2")
+]
+for arr, case_name in test_cases:
+    merge_sort(arr)
+    print(f"{case_name}:")
+    print(f"Sorted array: {arr}\n")
+
+Input: [31, 23, 35, 27, 11, 21, 15, 28]
+Output: Sorted array: [11, 15, 21, 23, 27, 28, 31, 35]
