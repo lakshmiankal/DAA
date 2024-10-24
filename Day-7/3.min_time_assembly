@@ -1,0 +1,50 @@
+def min_time_assembly_line(station_times, transfer_times, dependencies):
+    n = len(station_times[0])
+    num_lines = len(station_times)
+    dp = [[float('inf')] * n for _ in range(num_lines)]
+    for i in range(num_lines):
+        dp[i][0] = station_times[i][0]
+    for j in range(1, n):
+        for i in range(num_lines):
+            dp[i][j] = dp[i][j-1] + station_times[i][j]
+            for k in range(num_lines):
+                if k != i:
+                    dp[i][j] = min(dp[i][j], dp[k][j-1] + transfer_times[k][i] + station_times[i][j])
+    for dep in dependencies:
+        for i in range(num_lines):
+            dp[i][dep[1]] = min(dp[i][dep[1]], dp[i][dep[0]] + station_times[i][dep[1]])
+    min_time = float('inf')
+    for i in range(num_lines):
+        min_time = min(min_time, dp[i][n-1])
+    
+    return min_time
+station_times = [
+    [5, 9, 3],
+    [6, 8, 4],
+    [7, 6, 5]
+]
+
+transfer_times = [
+    [0, 2, 3],
+    [2, 0, 4],
+    [3, 4, 0]
+]
+
+dependencies = [(0, 1), (1, 2)]
+
+min_time = min_time_assembly_line(station_times, transfer_times, dependencies)
+print(f"Minimum time required to process the product: {min_time}")
+
+
+Station times:
+Line 1: [5, 9, 3]
+Line 2: [6, 8, 4]
+Line 3: [7, 6, 5]
+
+Transfer times:
+[0, 2, 3]
+[2, 0, 4]
+[3, 4, 0]
+
+Dependencies: [(0, 1), (1, 2)]
+
