@@ -1,0 +1,33 @@
+def process_list(input_list):
+    # If the list is empty, return an empty list
+    if len(input_list) == 0:
+        return []
+    if len(set(input_list)) == 1 or len(input_list) == 1:
+        return input_list
+    if all(isinstance(i, int) and i < 0 for i in input_list):
+        return sorted(input_list)
+    
+    return input_list
+test_cases = [
+    [],
+    [1],
+    [7, 7, 7, 7],
+    [-5, -1, -3, -2, -4]
+]
+for i, test in enumerate(test_cases):
+    print(f"Input: {test}")
+    print(f"Output: {process_list(test)}")
+    print()
+
+
+Input: []
+Output: []
+
+Input: [1]
+Output: [1]
+
+Input: [7, 7, 7, 7]
+Output: [7, 7, 7, 7]
+
+Input: [-5, -1, -3, -2, -4]
+Output: [-5, -4, -3, -2, -1]
