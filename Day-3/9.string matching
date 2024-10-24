@@ -1,0 +1,21 @@
+def string_matching(words):
+    result = []
+    for i in range(len(words)):
+        for j in range(len(words)):
+            if i != j and words[i] in words[j]:
+                result.append(words[i])
+                break
+    return result
+
+
+words1 = ["mass", "as", "hero", "superhero"]
+print(string_matching(words1))  
+Output: ["as", "hero"]
+
+words2 = ["leetcode", "et", "code"]
+print(string_matching(words2))  
+Output: ["et", "code"]
+
+words3 = ["blue", "green", "bu"]
+print(string_matching(words3))  
+Output: []
