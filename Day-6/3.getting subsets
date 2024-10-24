@@ -1,0 +1,43 @@
+from itertools import combinations
+def get_subsets(arr):
+    subsets = []
+    for i in range(len(arr) + 1):
+        for combo in combinations(arr, i):
+            subsets.append(combo)
+    return subsets
+def meet_in_the_middle(arr, target):
+    n = len(arr)
+    left = arr[:n//2]
+    right = arr[n//2:]
+    left_subsets = get_subsets(left)
+    right_subsets = get_subsets(right)
+    left_sums = {sum(subset): subset for subset in left_subsets}
+    right_sums = {sum(subset): subset for subset in right_subsets}
+    closest_sum = float('inf')
+    closest_subset = []
+ for left_sum in left_sums:
+        for right_sum in right_sums:
+            current_sum = left_sum + right_sum
+            if abs(target - current_sum) < abs(target - closest_sum):
+                closest_sum = current_sum
+                closest_subset = left_sums[left_sum] + right_sums[right_sum]
+return closest_subset, closest_sum
+
+test_cases = [
+    ([45, 34, 4, 12, 5, 2], 42, "Test Case 1"),
+    ([1, 3, 2, 7, 4, 6], 10, "Test Case 2")
+]
+for arr, target, case_name in test_cases:
+    subset, closest_sum = meet_in_the_middle(arr, target)
+    print(f"{case_name}:")
+    print(f"Array: {arr}")
+    print(f"Target Sum: {target}")
+    print(f"Closest Subset: {subset}")
+    print(f"Closest Sum: {closest_sum}\n")
+
+Test Case 1:
+Array: [45, 34, 4, 12, 5, 2]
+Target Sum: 42
+Closest Subset: (34, 4, 2)
+Closest Sum: 40
+
