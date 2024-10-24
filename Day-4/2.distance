@@ -1,0 +1,60 @@
+import math
+def distance(point1, point2):
+    return math.sqrt((point1[0] - point2[0]) ** 2 + (point1[1] - point2[1]) ** 2)
+def closest_pair(points):
+    min_distance = float('inf')
+    closest_points = (None, None)
+    
+    for i in range(len(points)):
+        for j in range(i + 1, len(points)):
+            dist = distance(points[i], points[j])
+            if dist < min_distance:
+                min_distance = dist
+                closest_points = (points[i], points[j])
+    
+    return closest_points, min_distance
+def orientation(p, q, r):
+    val = (q[1] - p[1]) * (r[0] - q[0]) - (q[0] - p[0]) * (r[1] - q[1])
+    if val == 0:
+        return 0  # collinear
+    elif val > 0:
+        return 1  # clockwise
+    else:
+        return 2  # counterclockwise
+def convex_hull(points):
+    n = len(points)
+    if n < 3:
+        return []
+  hull = []
+    for i in range(n):
+        for j in range(i + 1, n):
+            left = right = 0
+            collinear_points = []
+            for k in range(n):
+                if k == i or k == j:
+                    continue
+                o = orientation(points[i], points[j], points[k])
+                if o == 1:
+                    right += 1
+                elif o == 2:
+                    left += 1
+                else:
+                    collinear_points.append(points[k])
+            if left == 0 or right == 0:
+                hull.append(points[i])
+                hull.append(points[j])
+                hull.extend(collinear_points)
+
+    hull = list(set(hull))  # Remove duplicates
+    return hull
+
+
+points = [(1, 2), (4, 5), (7, 8), (3, 1)]
+closest_points, min_distance = closest_pair(points)
+print(f"Closest pair: {closest_points[0]} - {closest_points[1]}")
+print(f"Minimum distance: {min_distance}")
+
+
+points = [(10, 0), (11, 5), (5, 3), (9, 3.5), (15, 3), (12.5, 7), (6, 6.5), (7.5, 4.5)]
+hull = convex_hull(points)
+print("Convex Hull:", hull)
