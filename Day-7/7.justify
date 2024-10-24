@@ -1,0 +1,21 @@
+def full_justify(words, maxWidth):
+    res, cur, num_of_letters = [], [], 0
+    for word in words:
+        if num_of_letters + len(word) + len(cur) > maxWidth:
+            for i in range(maxWidth - num_of_letters):
+                cur[i % (len(cur) - 1 or 1)] += ' '
+            res.append(''.join(cur))
+            cur, num_of_letters = [], 0
+        cur += [word]
+        num_of_letters += len(word)
+
+    return res + [' '.join(cur).ljust(maxWidth)]
+words1 = ["This", "is", "an", "example", "of", "text", "justification."]
+maxWidth1 = 16
+print(full_justify(words1, maxWidth1))
+Output: ["This    is    an", "example  of text", "justification.  "]
+
+words2 = ["What", "must", "be", "acknowledgment", "shall", "be"]
+maxWidth2 = 16
+print(full_justify(words2, maxWidth2))
+Output: ["What   must   be", "acknowledgment  ", "shall be        "]
