@@ -1,0 +1,27 @@
+import itertools
+def total_value(items, values):
+    return sum(values[i] for i in items)
+def is_feasible(items, weights, capacity):
+    return sum(weights[i] for i in items) <= capacity
+def knapsack_problem(weights, values, capacity):
+    num_items = len(weights)
+    best_value = 0
+    best_combination = []
+    for r in range(num_items + 1):
+        for combination in itertools.combinations(range(num_items), r):
+            if is_feasible(combination, weights, capacity):
+                current_value = total_value(combination, values)
+                if current_value > best_value:
+                    best_value = current_value
+                    best_combination = combination
+
+    return best_combination, best_value
+test_cases = [
+    ([2, 3, 1], [4, 5, 3], 4, "Test Case 1"),
+    ([1, 2, 3, 4], [2, 4, 6, 3], 6, "Test Case 2")
+]
+for weights, values, capacity, case_name in test_cases:
+    best_combination, best_value = knapsack_problem(weights, values, capacity)
+    print(f"{case_name}:")
+    print(f"Optimal Selection: {list(best_combination)} (Items with indices {list(best_combination)})")
+    print(f"Total Value: {best_value}\n")
